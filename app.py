@@ -107,7 +107,14 @@ def jobs():
     with get_db() as db:
         job_list = db.execute('SELECT * FROM jobs ORDER BY id DESC').fetchall()
     return render_template('jobs.html', jobs=job_list, categories=JOB_CATEGORIES)
+@app.route('/govt-schemes')
+def govt_schemes():
+    return render_template('govt_schemes.html')
 
+
+@app.route('/tech-services')
+def tech_services():
+    return render_template('tech_services.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
