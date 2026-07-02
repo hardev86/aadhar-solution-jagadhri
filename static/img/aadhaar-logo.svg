@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 240">
+<defs><filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="5" flood-opacity=".25"/></filter><linearGradient id="r" x1="0" x2="1"><stop stop-color="#ff4a3a"/><stop offset="1" stop-color="#c90000"/></linearGradient><linearGradient id="o" x1="0" x2="1"><stop stop-color="#ffd34d"/><stop offset="1" stop-color="#ff9b13"/></linearGradient></defs>
+<ellipse cx="180" cy="118" rx="160" ry="92" fill="#fff" filter="url(#s)"/>
+<g fill="url(#o)" filter="url(#s)"><path d="M176 20h30l-15 32z"/><path d="M108 36l28 12-26 24z"/><path d="M252 43l-25 24 29 10z"/><path d="M70 82l31 4-21 28z"/><path d="M291 91l-29 22 32 8z"/></g>
+<g fill="none" stroke="url(#r)" stroke-linecap="round" filter="url(#s)"><path d="M85 155c24-72 95-103 178-60" stroke-width="22"/><path d="M116 158c22-48 73-70 130-39" stroke-width="19"/><path d="M148 161c17-28 47-38 82-19" stroke-width="16"/><path d="M181 164c8-10 18-12 31-5" stroke-width="13"/></g>
+<circle cx="89" cy="139" r="11" fill="#e21b1b" filter="url(#s)"/>
+<text x="180" y="216" text-anchor="middle" font-family="Arial Black,Arial" font-size="46" fill="#d71919" filter="url(#s)">AADHAAR</text>
+</svg>

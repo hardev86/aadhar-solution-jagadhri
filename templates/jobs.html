@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="jobsHero">
+  <div>
+    <p class="eyebrow">Latest Updates</p>
+    <h2>Free Job Alert Style Job Portal</h2>
+    <p>Govt Job, Private Job, Admit Card, Result, Answer Key, Syllabus — sabhi update ek jagah.</p>
+  </div>
+  <a class="postBtn" href="{{ url_for('admin') }}">+ Admin se Job Add Karein</a>
+</section>
+
+<section class="jobPortal">
+  <aside class="jobSide">
+    <h3>Important Links</h3>
+    <a href="#latest">Latest Jobs</a>
+    <a href="#admit">Admit Card</a>
+    <a href="#result">Result</a>
+    <a href="#syllabus">Syllabus</a>
+    <a href="#answer">Answer Key</a>
+    <a href="#private">Private Jobs</a>
+    <div class="noticeBox">📢 New job notification add karne ke liye Admin Panel open karein.</div>
+  </aside>
+
+  <div class="jobMain">
+    <div class="jobSearchBar">
+      <input id="jobSearch" onkeyup="filterJobs()" placeholder="Search: Clerk, Police, Railway, SSC, Qualification...">
+      <select id="jobCategory" onchange="filterJobs()">
+        <option value="">All Category</option>
+        {% for c in categories %}<option value="{{ c }}">{{ c }}</option>{% endfor %}
+      </select>
+    </div>
+
+    <div class="jobColumns">
+      <div class="jobPanel" id="latest">
+        <h3>Latest Jobs</h3>
+        <ul class="jobList">
+          {% for j in jobs %}
+          {% if j.category in ['Govt Job','Private Job'] %}
+          <li class="jobItem" data-cat="{{ j.category }}" data-text="{{ j.title }} {{ j.qualification }} {{ j.details }}">
+            <span class="newBlink">NEW</span>
+            <a {% if j.link %}href="{{ j.link }}" target="_blank"{% else %}href="#"{% endif %}>{{ j.title }}</a>
+            <small>{{ j.category }} | Qualification: {{ j.qualification }} | Last Date: {{ j.last_date }}</small>
+          </li>
+          {% endif %}
+          {% else %}
+          <li>Abhi job nahi hai. Admin panel se add karein.</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="jobPanel" id="admit">
+        <h3>Admit Card / Result</h3>
+        <ul class="jobList">
+          {% for j in jobs %}
+          {% if j.category in ['Admit Card','Result','Answer Key'] %}
+          <li class="jobItem" data-cat="{{ j.category }}" data-text="{{ j.title }} {{ j.qualification }} {{ j.details }}">
+            <span class="newBlink">NEW</span>
+            <a {% if j.link %}href="{{ j.link }}" target="_blank"{% else %}href="#"{% endif %}>{{ j.title }}</a>
+            <small>{{ j.category }} | {{ j.details }}</small>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="jobPanel" id="syllabus">
+        <h3>Syllabus / Important</h3>
+        <ul class="jobList">
+          {% for j in jobs %}
+          {% if j.category == 'Syllabus' %}
+          <li class="jobItem" data-cat="{{ j.category }}" data-text="{{ j.title }} {{ j.qualification }} {{ j.details }}">
+            <span class="newBlink">NEW</span>
+            <a {% if j.link %}href="{{ j.link }}" target="_blank"{% else %}href="#"{% endif %}>{{ j.title }}</a>
+            <small>{{ j.details }}</small>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+function filterJobs(){
+  let q=document.getElementById('jobSearch').value.toLowerCase();
+  let cat=document.getElementById('jobCategory').value;
+  document.querySelectorAll('.jobItem').forEach(function(item){
+    let text=item.dataset.text.toLowerCase();
+    let okText=text.includes(q);
+    let okCat=!cat || item.dataset.cat===cat;
+    item.style.display=(okText && okCat)?'block':'none';
+  });
+}
+</script>
+{% endblock %}

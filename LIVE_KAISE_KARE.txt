@@ -1,0 +1,20 @@
+LIVE करने का आसान तरीका (Render):
+
+1. GitHub.com खोलें
+2. New repository बनाएं: aadhar-portal-pro
+3. इस folder की सारी files GitHub repository में upload करें
+4. Render.com पर login करें
+5. New + पर क्लिक करें -> Web Service
+6. GitHub repository select करें
+7. Settings:
+   Build Command: pip install -r requirements.txt
+   Start Command: gunicorn app:app
+8. Create Web Service दबाएं
+9. Deploy complete होने के बाद live link मिलेगा
+
+Local run:
+pip install -r requirements.txt
+python app.py
+
+Admin page:
+your-live-link/admin

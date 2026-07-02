@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="propertyHero">
+  <div>
+    <p class="eyebrow">Buy • Sell • Rent</p>
+    <h2>OLX Style Property Portal</h2>
+    <p>Plot, House, Shop, Land, Office — photo ke saath property add karein. Admin panel me sab enquiry dikhegi.</p>
+  </div>
+  <a class="postBtn" href="#addProperty">+ Sell Property</a>
+</section>
+
+<section class="propLayout">
+  <aside class="propFilter">
+    <h3>Search Property</h3>
+    <input id="propSearch" onkeyup="filterProps()" placeholder="Location, title, type search">
+    <select id="propType" onchange="filterProps()">
+      <option value="">All Type</option>
+      <option>Plot</option><option>House</option><option>Shop</option><option>Land</option><option>Office</option>
+    </select>
+    <div class="noticeBox">📞 Buyer/Seller ka phone admin panel me bhi save hoga.</div>
+  </aside>
+
+  <div class="olxGrid">
+    {% for p in properties %}
+    <article class="olxCard" data-type="{{ p.property_type }}" data-text="{{ p.title }} {{ p.location }} {{ p.property_type }} {{ p.details }}">
+      <div class="olxImg">
+        {% if p.photo %}<img src="{{ url_for('uploads', filename=p.photo) }}">{% else %}<div class="noimg">🏠</div>{% endif %}
+        <span>{{ p.property_type }}</span>
+      </div>
+      <div class="olxBody">
+        <h3>₹ {{ p.price }}</h3>
+        <h4>{{ p.title }}</h4>
+        <p>📍 {{ p.location }}</p>
+        <small>{{ p.details }}</small>
+        <div class="olxActions">
+          <a href="tel:{{ p.phone }}">Call</a>
+          <a class="whSmall" href="https://wa.me/91{{ p.phone|replace('+91','')|replace(' ','') }}">WhatsApp</a>
+        </div>
+      </div>
+    </article>
+    {% else %}
+    <div class="panel">Abhi property add nahi hai. Neeche form se add karein.</div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="addWrap" id="addProperty">
+  <form class="addPropertyForm" method="post" enctype="multipart/form-data">
+    <h3>Apni Property Add Karein</h3>
+    <div class="formGrid">
+      <input name="owner" placeholder="Owner Name" required>
+      <input name="phone" placeholder="Phone Number" required>
+      <input name="title" placeholder="Property Title: 100 Gaj Plot" required>
+      <select name="property_type"><option>Plot</option><option>House</option><option>Shop</option><option>Land</option><option>Office</option></select>
+      <input name="location" placeholder="Location / Village / City">
+      <input name="price" placeholder="Price: 25 Lakh">
+      <textarea name="details" placeholder="Size, road, registry, facilities, nearby place"></textarea>
+      <label class="filePick">📷 Photo kheench kar upload karein <input type="file" name="photo" accept="image/*" capture="environment"></label>
+    </div>
+    <button>Add Property on Portal</button>
+  </form>
+</section>
+<script>
+function filterProps(){
+  let q=document.getElementById('propSearch').value.toLowerCase();
+  let type=document.getElementById('propType').value;
+  document.querySelectorAll('.olxCard').forEach(function(card){
+    let okText=card.dataset.text.toLowerCase().includes(q);
+    let okType=!type || card.dataset.type===type;
+    card.style.display=(okText && okType)?'block':'none';
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: aadhar-portal-pro
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
